@@ -6,47 +6,15 @@
 */
 
 // package - index.php
+// triggering doolite class
 
 
-class DooLite
-{
 
-	public $routes = array();
-	
-	function router()
-	{
-		$url = isset($_GET['url']) ? $_GET['url'] : null;
-		$url = rtrim($url, "/");
-		$url_array = explode("/", $url);
-		
-		foreach($url_array as $key => $value)
-		{
-			$this->routes[$key] = $value;
-		}
-		
-		//print_r($this);
-		
-		require_once "app/controller.php";
-		$method = $this->routes[0];
-		
-		
-		if($method)
-		{
-			$app = new app();
-			if(method_exists('app', $method))
-			{
-				$app->$method();
-			}
-			else
-			{
-				$app->main();
-			}
-		}
-	}
-}
+define('DS', DIRECTORY_SEPARATOR);
+require_once "lib" . DS . "doolite.php";
 
 $DooLite = new DooLite();
-$DooLite->router();
+$DooLite->main();
 
 
 ?>
